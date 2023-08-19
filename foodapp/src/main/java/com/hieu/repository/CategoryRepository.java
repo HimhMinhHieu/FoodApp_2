@@ -4,15 +4,13 @@
  */
 package com.hieu.repository;
 
-import com.hieu.pojo.CuaHang;
+import com.hieu.pojo.Category;
 import java.util.List;
-import java.util.Map;
 
 /**
  *
  * @author Thao
  */
-public interface CuaHangRepository {
-    List<CuaHang> getCuaHangs(Map<String, String> params);
-    CuaHang getCuaHangById(int id);
+public interface CategoryRepository {
+    List<Category> getCategorys();
 }

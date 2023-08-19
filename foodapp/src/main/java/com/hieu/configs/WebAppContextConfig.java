@@ -4,9 +4,12 @@
  */
 package com.hieu.configs;
 
+import com.hieu.formatters.CategoryFormatter;
+import com.hieu.formatters.StoreFormatter;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.format.FormatterRegistry;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 import org.springframework.web.servlet.config.annotation.DefaultServletHandlerConfigurer;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
@@ -33,13 +36,21 @@ public class WebAppContextConfig implements WebMvcConfigurer{
         configurer.enable();
     }
     
-    @Bean
-    public InternalResourceViewResolver internalResourceViewResolver(){
-        InternalResourceViewResolver r = new InternalResourceViewResolver();
-        r.setViewClass(JstlView.class);
-        r.setPrefix("/WEB-INF/pages/");
-        r.setSuffix(".jsp");
-        
-        return r;
+    
+    
+//    @Bean
+//    public InternalResourceViewResolver internalResourceViewResolver(){
+//        InternalResourceViewResolver r = new InternalResourceViewResolver();
+//        r.setViewClass(JstlView.class);
+//        r.setPrefix("/WEB-INF/pages/");
+//        r.setSuffix(".jsp");
+//        
+//        return r;
+//    }
+
+    @Override
+    public void addFormatters(FormatterRegistry registry) {
+        registry.addFormatter(new StoreFormatter());
+        registry.addFormatter(new CategoryFormatter());
     }
 }

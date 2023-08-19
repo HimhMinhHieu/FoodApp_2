@@ -25,5 +25,10 @@ public class CuaHangServiceImpl implements CuaHangService{
     public List<CuaHang> getCuaHangs(Map<String, String> params) {
         return this.storeRepo.getCuaHangs(params);
     }
+
+    @Override
+    public CuaHang getCuaHangById(int id) {
+        return this.storeRepo.getCuaHangById(id);
+    }
     
 }

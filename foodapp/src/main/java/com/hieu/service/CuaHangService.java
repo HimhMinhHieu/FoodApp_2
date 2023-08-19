@@ -13,5 +13,8 @@ import java.util.Map;
  * @author Thao
  */
 public interface CuaHangService {
+
     List<CuaHang> getCuaHangs(Map<String, String> params);
+
+    CuaHang getCuaHangById(int id);
 }

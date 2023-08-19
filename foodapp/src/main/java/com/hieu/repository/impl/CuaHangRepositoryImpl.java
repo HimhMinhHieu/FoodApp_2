@@ -84,5 +84,11 @@ public class CuaHangRepositoryImpl implements CuaHangRepository{
         }
         return query.getResultList();
     }
+
+    @Override
+    public CuaHang getCuaHangById(int id) {
+        Session s = this.factory.getObject().getCurrentSession();
+        return s.get(CuaHang.class, id);
+    }
     
 }
