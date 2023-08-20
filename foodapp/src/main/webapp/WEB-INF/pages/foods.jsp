@@ -7,8 +7,8 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
-<%--<c:url value="/stores/${stores.id}" var="action" />--%>
-<form:form modelAttribute="foods" method="post">
+<c:url value="/stores/${id = foods.idCuaHang.id}/foods" var="action" />
+<form:form modelAttribute="foods" method="post" action="${action}" >
     <form:hidden path="id" />
     <div class="form-floating mb-3 mt-3">
         <form:input type="text" path="name" class="form-control" id="name" placeholder="Enter name..." name="name" />

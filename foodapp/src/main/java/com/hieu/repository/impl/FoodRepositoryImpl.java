@@ -4,7 +4,6 @@
  */
 package com.hieu.repository.impl;
 
-import com.hieu.pojo.CuaHang;
 import com.hieu.pojo.ThucAn;
 import com.hieu.repository.FoodRepository;
 import java.util.ArrayList;
@@ -15,6 +14,7 @@ import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
+import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
@@ -28,13 +28,13 @@ import org.springframework.transaction.annotation.Transactional;
  */
 @Repository
 @Transactional
-public class FoodRepositoryImpl implements FoodRepository{
+public class FoodRepositoryImpl implements FoodRepository {
 
     @Autowired
     private LocalSessionFactoryBean factory;
     @Autowired
     private Environment env;
-    
+
     @Override
     public List<ThucAn> getThucAns(Map<String, String> params) {
         Session s = this.factory.getObject().getCurrentSession();
@@ -65,9 +65,8 @@ public class FoodRepositoryImpl implements FoodRepository{
 //            if (catestoreId != null && !catestoreId.isEmpty()) {
 //                predicates.add(b.equal(root.get("idLoai"), Integer.parseInt(catestoreId)));
 //            }
-            
             String storeId = params.get("storeId");
-            if (storeId != null && !storeId.isEmpty()){
+            if (storeId != null && !storeId.isEmpty()) {
                 predicates.add(b.equal(root.get("idCuaHang"), Integer.parseInt(storeId)));
             }
 
@@ -95,21 +94,49 @@ public class FoodRepositoryImpl implements FoodRepository{
     public List<ThucAn> getThucAnByCuaHang(int id) {
         Session s = this.factory.getObject().getCurrentSession();
         CriteriaBuilder b = s.getCriteriaBuilder();
-        CriteriaQuery<ThucAn> q = b.createQuery(ThucAn.class);
-        Root root = q.from(ThucAn.class);
+        CriteriaQuery<ThucAn> q = b.createQuery(ThucAn.class
+        );
+        Root root = q.from(ThucAn.class
+        );
         q.select(root);
 
-            List<Predicate> predicates = new ArrayList<>();
-            
-            predicates.add(b.equal(root.get("idCuaHang"), id));
+        List<Predicate> predicates = new ArrayList<>();
 
-            q.where(predicates.stream().toArray(Predicate[]::new));
+        predicates.add(b.equal(root.get("idCuaHang"), id));
 
+        q.where(predicates.stream().toArray(Predicate[]::new));
 
         q.orderBy(b.desc(root.get("id")));
 
         Query query = s.createQuery(q);
         return query.getResultList();
     }
-    
+
+    @Override
+    public ThucAn getThucAnById(int id
+    ) {
+        Session s = this.factory.getObject().getCurrentSession();
+
+        return s.get(ThucAn.class,
+                id);
+    }
+
+    @Override
+    public boolean addOrUpdateFood(ThucAn f
+    ) {
+        Session s = this.factory.getObject().getCurrentSession();
+        try {
+            if (f.getId() == null) {
+                s.save(f);
+            } else {
+                s.update(f);
+            }
+
+            return true;
+        } catch (HibernateException ex) {
+            ex.printStackTrace();
+            return false;
+        }
+    }
+
 }

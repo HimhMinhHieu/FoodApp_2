@@ -22,14 +22,13 @@ import org.springframework.web.bind.annotation.PostMapping;
  * @author Thao
  */
 @Controller
-//@ControllerAdvice
-public class StoreController {
+public class FoodController {
     @Autowired
     private FoodService foodService;
     @Autowired
-    private CuaHangService storeService;
-    @Autowired
     private CategoryService categoryService;
+    @Autowired
+    private CuaHangService storeService;
     
     @ModelAttribute
     public void commonAttr(Model model)
@@ -38,26 +37,27 @@ public class StoreController {
         
     }
     
-    @GetMapping("/stores/{id}")
-    public String foodsdetail(@PathVariable("id") int id, Model model) 
+    @GetMapping("/stores/{id}/foods")
+    public String foodlist(Model model,@PathVariable("id") int id) 
     {
-        model.addAttribute("stores", this.storeService.getCuaHangById(id));
-        model.addAttribute("foods", this.foodService.getThucAnByCuaHang(id));
+
+        ThucAn food = new ThucAn();
+        food.setIdCuaHang(this.storeService.getCuaHangById(id));
+        model.addAttribute("foods", food);
+//        model.addAttribute("stores", this.storeService.getCuaHangById(id));
 //        model.addAttribute("categories", this.categoryService.getCategorys());
 //        model.addAttribute("categories", this.categoryService.getCategorys());
-        return "stores";
+        return "foods";
     }
     
-    
-    
-//    @PostMapping("/stores/{id}/foods")
-//    public String foodadd(@ModelAttribute(value = "foods") @Valid ThucAn f)
-//    {
-////        ThucAn food = new ThucAn();
-////        food.setIdCuaHang(this.storeService.getCuaHangById(id));
-////        model.addAttribute("foods", food);
-//        if(this.foodService.addOrUpdateFood(f) == true)
-//            return "redirect:/stores/{id}";
-//        return "foods";
-//    }
+     @PostMapping("/stores/{id}/foods")
+    public String foodadd(@ModelAttribute(value = "foods") @Valid ThucAn f)
+    {
+//        ThucAn food = new ThucAn();
+//        food.setIdCuaHang(this.storeService.getCuaHangById(id));
+//        model.addAttribute("foods", food);
+        if(this.foodService.addOrUpdateFood(f) == true)
+            return "redirect:/stores/{id}";
+        return "foods";
+    }
 }

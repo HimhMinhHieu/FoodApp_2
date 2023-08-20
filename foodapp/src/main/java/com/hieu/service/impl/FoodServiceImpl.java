@@ -36,5 +36,15 @@ public class FoodServiceImpl implements FoodService{
     public List<ThucAn> getThucAnByCuaHang(int id) {
         return this.foodRepo.getThucAnByCuaHang(id);
     }
+
+    @Override
+    public ThucAn getThucAnById(int id) {
+        return this.foodRepo.getThucAnById(id);
+    }
+
+    @Override
+    public boolean addOrUpdateFood(ThucAn f) {
+        return this.foodRepo.addOrUpdateFood(f);
+    }
     
 }

@@ -15,4 +15,6 @@ import java.util.Map;
 public interface FoodService {
     List<ThucAn> getThucAns(Map<String, String> params);
     List<ThucAn> getThucAnByCuaHang(int id);
+    ThucAn getThucAnById(int id);
+    boolean addOrUpdateFood(ThucAn f);
 }
