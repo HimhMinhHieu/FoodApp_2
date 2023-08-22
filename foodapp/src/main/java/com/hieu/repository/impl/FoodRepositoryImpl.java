@@ -139,4 +139,18 @@ public class FoodRepositoryImpl implements FoodRepository {
         }
     }
 
+    @Override
+    public boolean deleteFood(int id) {
+        Session s = this.factory.getObject().getCurrentSession();
+        ThucAn food = this.getThucAnById(id);
+        try{
+            s.delete(food);
+            return true;
+        }catch(HibernateException ex)
+        {
+            ex.printStackTrace();
+            return false;
+        }
+    }
+
 }

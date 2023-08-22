@@ -21,6 +21,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
@@ -47,11 +48,17 @@ public class ThucAn implements Serializable {
     @Basic(optional = false)
     @Column(name = "id")
     private Integer id;
-    @Size(max = 45)
+    @Basic(optional = false)
+    @NotNull(message = "{food.name.notNullMsg}")
+    @Size(min = 3, max = 45, message = "{food.name.lenErr}")
     @Column(name = "name")
     private String name;
+    @Basic(optional = false)
+    @NotNull(message = "{food.amout.notNull}")
     @Column(name = "so_luong")
     private Integer soLuong;
+    @Basic(optional = false)
+    @NotNull(message = "{food.price.notNull}")
     @Column(name = "price")
     private Long price;
     @Column(name = "created_date")

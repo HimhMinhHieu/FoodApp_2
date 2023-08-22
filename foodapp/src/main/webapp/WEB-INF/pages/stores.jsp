@@ -23,9 +23,9 @@
         <tbody>
             <c:forEach items="${foods}" var="f">
                 <c:url value="/stores/${f.id}" var="searchStore">
-                        <c:param name="storeId" value="${f.id}" /> 
-                 </c:url>
-                
+                    <c:param name="storeId" value="${f.id}" /> 
+                </c:url>
+
                 <tr>
                     <td>
 
@@ -35,14 +35,80 @@
                     <td>${f.soLuong}</td>
                     <td>${f.price}</td>
                     <td>
-                        <a href="#" class="btn btn-success" >Cập nhật</a>
-                        <button class="btn btn-danger">Xóa</button>
+                        <c:url value="/api/stores/${stores.id}/foods/${f.id}/" var="api" />
+                        <a href="<c:url value="/stores/${stores.id}/foods/${f.id}" />" class="btn btn-success" >Cập nhật</a>
+                        <button class="btn btn-danger" onclick="delFood('${api}')">Xóa</button>
                     </td>
                     <td>
-                        <a href="${searchStore}" class="btn btn-success" >Xem Chi Tiet</a>
+                        <button type="button" class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#myModal-${f.id}">
+                            Xem chi tiết
+                        </button>
+                        <div class="modal" id="myModal-${f.id}">
+                            <div class="modal-dialog modal-dialog-centered">
+                                <div class="modal-content">
+                                    <!-- Modal Header -->
+                                    <div class="modal-header">
+                                        <h4 class="modal-title">${stores.name}</h4>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                                    </div>
+
+                                    <!-- Modal body -->
+                                    <div class="modal-body">
+                                        <table class="table table-hover">
+                                            <tbody>
+
+                                                <tr>
+                                                    <td></td>
+                                                    <td>
+
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td>ID</td>
+                                                    <td>${f.id}</td>
+                                                </tr>
+
+                                                <tr>
+                                                    <td>Tên</td>
+                                                    <td>${f.name}</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Số Lượng</td>
+                                                    <td>${f.soLuong}</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Giá</td>
+                                                    <td>${f.price}</td>
+                                                </tr>
+
+                                                <tr>
+                                                    <td>Loại</td>
+                                                    <td>${f.idLoai.name }</td> 
+                                                </tr>
+
+                                                <tr>
+                                                    <td>Tên Cửa Hàng</td>
+                                                    <td>${f.idCuaHang.name}</td>
+                                                </tr>
+
+                                            </tbody>
+                                        </table> 
+                                    </div>
+
+
+                                    <!-- Modal footer -->
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
                     </td>
                 </tr>
             </c:forEach>
         </tbody>
-    </table>
+    </table> 
 </section>
+
+<script src="<c:url value="/js/main.js" />"></script>

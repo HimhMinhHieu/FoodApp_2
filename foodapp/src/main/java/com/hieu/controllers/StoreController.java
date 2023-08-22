@@ -43,6 +43,7 @@ public class StoreController {
     {
         model.addAttribute("stores", this.storeService.getCuaHangById(id));
         model.addAttribute("foods", this.foodService.getThucAnByCuaHang(id));
+        model.addAttribute("foodDetail", this.foodService.getThucAnById(id));
 //        model.addAttribute("categories", this.categoryService.getCategorys());
 //        model.addAttribute("categories", this.categoryService.getCategorys());
         return "stores";

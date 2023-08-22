@@ -12,6 +12,7 @@ import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -43,6 +44,7 @@ public class FoodController {
 
         ThucAn food = new ThucAn();
         food.setIdCuaHang(this.storeService.getCuaHangById(id));
+        
         model.addAttribute("foods", food);
 //        model.addAttribute("stores", this.storeService.getCuaHangById(id));
 //        model.addAttribute("categories", this.categoryService.getCategorys());
@@ -51,13 +53,23 @@ public class FoodController {
     }
     
      @PostMapping("/stores/{id}/foods")
-    public String foodadd(@ModelAttribute(value = "foods") @Valid ThucAn f)
+    public String foodadd(@ModelAttribute(value = "foods") @Valid ThucAn f, BindingResult rs)
     {
 //        ThucAn food = new ThucAn();
 //        food.setIdCuaHang(this.storeService.getCuaHangById(id));
 //        model.addAttribute("foods", food);
-        if(this.foodService.addOrUpdateFood(f) == true)
-            return "redirect:/stores/{id}";
+        if(!rs.hasErrors()){
+            
+            if(this.foodService.addOrUpdateFood(f) == true)
+                return "redirect:/stores/{id}";
+        }
+        return "foods";
+    }
+    
+    @GetMapping("/stores/{id}/foods/{id}")
+    public String updateFood(Model model, @PathVariable(value = "id") int id)
+    {
+        model.addAttribute("foods", this.foodService.getThucAnById(id));
         return "foods";
     }
 }

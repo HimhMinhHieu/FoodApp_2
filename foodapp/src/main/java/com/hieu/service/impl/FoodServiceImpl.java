@@ -46,5 +46,10 @@ public class FoodServiceImpl implements FoodService{
     public boolean addOrUpdateFood(ThucAn f) {
         return this.foodRepo.addOrUpdateFood(f);
     }
+
+    @Override
+    public boolean deleteFood(int id) {
+        return this.foodRepo.deleteFood(id);
+    }
     
 }
