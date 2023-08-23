@@ -8,7 +8,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <c:url value="/stores/${id = foods.idCuaHang.id}/foods" var="action" />
-<form:form modelAttribute="foods" method="post" action="${action}" >
+<form:form modelAttribute="foods" method="post" action="${action}" enctype="multipart/form-data">
     <form:hidden path="id" />
     <form:hidden path="idCuaHang" />
     <div class="form-floating mb-3 mt-3">
@@ -42,18 +42,26 @@
         <label for="cate" class="form-label">Danh mục</label>
     </div>
 
-        <div class="form-floating mt-3 mb-3">
-    <form:select class="form-select" id="store" name="store" path="idCuaHang">
-        <c:forEach items="${stores}" var="s">
-            <c:choose>  
-                <c:when test="${s.id == foods.idCuaHang.id}"><option value="${s.id}" hidden selected>${s.name}</option></c:when>
-                <c:otherwise><option value="${s.id}" hidden>${s.name}</option></c:otherwise>
-            </c:choose>
+    <div class="form-floating mt-3 mb-3">
+        <form:select class="form-select" id="store" name="store" path="idCuaHang">
+            <c:forEach items="${stores}" var="s">
+                <c:choose>  
+                    <c:when test="${s.id == foods.idCuaHang.id}"><option value="${s.id}" hidden selected>${s.name}</option></c:when>
+                    <c:otherwise><option value="${s.id}" hidden>${s.name}</option></c:otherwise>
+                </c:choose>
 
-        </c:forEach>
-    </form:select>
-    <label for="store" class="form-label">Tên cửa hàng</label>
-</div>
+            </c:forEach>
+        </form:select>
+        <label for="store" class="form-label">Tên cửa hàng</label>
+    </div>
+    
+    <div class="form-floating mb-3 mt-3">
+        <form:input type="file" class="form-control" path="file"  />
+        <label for="name">Ảnh sản phẩm</label>
+        <c:if test="${foods.image != null}">
+            <img src="${foods.image}" width="120" />
+        </c:if>
+    </div>
 
     <div class="form-floating mb-3 mt-3 d-flex justify-content-between">
         <button type="submit" class="btn btn-info">

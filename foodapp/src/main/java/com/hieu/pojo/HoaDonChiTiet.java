@@ -19,6 +19,7 @@ import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.validation.constraints.NotNull;
 import javax.xml.bind.annotation.XmlRootElement;
 
 /**
@@ -43,12 +44,18 @@ public class HoaDonChiTiet implements Serializable {
     @Basic(optional = false)
     @Column(name = "id")
     private Integer id;
+    @Basic(optional = false)
+    @NotNull
     @Column(name = "so_luong_mua")
-    private Integer soLuongMua;
+    private int soLuongMua;
+    @Basic(optional = false)
+    @NotNull
     @Column(name = "gia_van_chuyen")
-    private Long giaVanChuyen;
+    private long giaVanChuyen;
+    @Basic(optional = false)
+    @NotNull
     @Column(name = "tong_tien")
-    private Long tongTien;
+    private long tongTien;
     @Column(name = "created_date")
     @Temporal(TemporalType.TIMESTAMP)
     private Date createdDate;
@@ -66,6 +73,13 @@ public class HoaDonChiTiet implements Serializable {
         this.id = id;
     }
 
+    public HoaDonChiTiet(Integer id, int soLuongMua, long giaVanChuyen, long tongTien) {
+        this.id = id;
+        this.soLuongMua = soLuongMua;
+        this.giaVanChuyen = giaVanChuyen;
+        this.tongTien = tongTien;
+    }
+
     public Integer getId() {
         return id;
     }
@@ -74,27 +88,27 @@ public class HoaDonChiTiet implements Serializable {
         this.id = id;
     }
 
-    public Integer getSoLuongMua() {
+    public int getSoLuongMua() {
         return soLuongMua;
     }
 
-    public void setSoLuongMua(Integer soLuongMua) {
+    public void setSoLuongMua(int soLuongMua) {
         this.soLuongMua = soLuongMua;
     }
 
-    public Long getGiaVanChuyen() {
+    public long getGiaVanChuyen() {
         return giaVanChuyen;
     }
 
-    public void setGiaVanChuyen(Long giaVanChuyen) {
+    public void setGiaVanChuyen(long giaVanChuyen) {
         this.giaVanChuyen = giaVanChuyen;
     }
 
-    public Long getTongTien() {
+    public long getTongTien() {
         return tongTien;
     }
 
-    public void setTongTien(Long tongTien) {
+    public void setTongTien(long tongTien) {
         this.tongTien = tongTien;
     }
 

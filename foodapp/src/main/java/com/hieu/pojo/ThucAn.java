@@ -21,10 +21,12 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.persistence.Transient;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
+import org.springframework.web.multipart.MultipartFile;
 
 /**
  *
@@ -39,8 +41,23 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "ThucAn.findByName", query = "SELECT t FROM ThucAn t WHERE t.name = :name"),
     @NamedQuery(name = "ThucAn.findBySoLuong", query = "SELECT t FROM ThucAn t WHERE t.soLuong = :soLuong"),
     @NamedQuery(name = "ThucAn.findByPrice", query = "SELECT t FROM ThucAn t WHERE t.price = :price"),
+    @NamedQuery(name = "ThucAn.findByImage", query = "SELECT t FROM ThucAn t WHERE t.image = :image"),
     @NamedQuery(name = "ThucAn.findByCreatedDate", query = "SELECT t FROM ThucAn t WHERE t.createdDate = :createdDate")})
 public class ThucAn implements Serializable {
+
+    /**
+     * @return the file
+     */
+    public MultipartFile getFile() {
+        return file;
+    }
+
+    /**
+     * @param file the file to set
+     */
+    public void setFile(MultipartFile file) {
+        this.file = file;
+    }
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -50,17 +67,20 @@ public class ThucAn implements Serializable {
     private Integer id;
     @Basic(optional = false)
     @NotNull(message = "{food.name.notNullMsg}")
-    @Size(min = 3, max = 45, message = "{food.name.lenErr}")
+    @Size(min = 1, max = 45, message = "{food.name.lenErr}")
     @Column(name = "name")
     private String name;
     @Basic(optional = false)
     @NotNull(message = "{food.amout.notNull}")
     @Column(name = "so_luong")
-    private Integer soLuong;
+    private int soLuong;
     @Basic(optional = false)
     @NotNull(message = "{food.price.notNull}")
     @Column(name = "price")
-    private Long price;
+    private long price;
+    @Size(max = 255)
+    @Column(name = "image")
+    private String image;
     @Column(name = "created_date")
     @Temporal(TemporalType.TIMESTAMP)
     private Date createdDate;
@@ -72,12 +92,21 @@ public class ThucAn implements Serializable {
     private CuaHang idCuaHang;
     @OneToMany(mappedBy = "idThucAn")
     private Set<HoaDonChiTiet> hoaDonChiTietSet;
+    @Transient
+    private MultipartFile file;
 
     public ThucAn() {
     }
 
     public ThucAn(Integer id) {
         this.id = id;
+    }
+
+    public ThucAn(Integer id, String name, int soLuong, long price) {
+        this.id = id;
+        this.name = name;
+        this.soLuong = soLuong;
+        this.price = price;
     }
 
     public Integer getId() {
@@ -96,20 +125,28 @@ public class ThucAn implements Serializable {
         this.name = name;
     }
 
-    public Integer getSoLuong() {
+    public int getSoLuong() {
         return soLuong;
     }
 
-    public void setSoLuong(Integer soLuong) {
+    public void setSoLuong(int soLuong) {
         this.soLuong = soLuong;
     }
 
-    public Long getPrice() {
+    public long getPrice() {
         return price;
     }
 
-    public void setPrice(Long price) {
+    public void setPrice(long price) {
         this.price = price;
+    }
+
+    public String getImage() {
+        return image;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
     }
 
     public Date getCreatedDate() {

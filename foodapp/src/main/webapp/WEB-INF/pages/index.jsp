@@ -30,7 +30,7 @@
                     <td>${s.id}</td>
                     <td>${s.name}</td>
                     <td>${s.diaChi}</td>
-                    <td>${s.idLoai}</td>
+                    <td>${s.idLoaiCuaHang}</td>
                     <td>
                         <a href="${searchStore}" class="btn btn-success" >Xem Chi Tiet</a>
                         <a href="#" class="btn btn-success" >Cập nhật</a>

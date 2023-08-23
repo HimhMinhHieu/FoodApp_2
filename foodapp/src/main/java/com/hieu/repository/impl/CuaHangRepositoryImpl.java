@@ -62,7 +62,7 @@ public class CuaHangRepositoryImpl implements CuaHangRepository{
 
             String catestoreId = params.get("catestoreId");
             if (catestoreId != null && !catestoreId.isEmpty()) {
-                predicates.add(b.equal(root.get("idLoai"), Integer.parseInt(catestoreId)));
+                predicates.add(b.equal(root.get("idLoaiCuaHang"), Integer.parseInt(catestoreId)));
             }
 
             q.where(predicates.stream().toArray(Predicate[]::new));

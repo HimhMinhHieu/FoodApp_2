@@ -6,7 +6,10 @@ package com.hieu.repository.impl;
 
 import com.hieu.pojo.ThucAn;
 import com.hieu.repository.FoodRepository;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 import javax.persistence.Query;
@@ -127,6 +130,7 @@ public class FoodRepositoryImpl implements FoodRepository {
         Session s = this.factory.getObject().getCurrentSession();
         try {
             if (f.getId() == null) {
+                f.setCreatedDate(Date.from(LocalDateTime.now().atZone(ZoneId.systemDefault()).toInstant()));
                 s.save(f);
             } else {
                 s.update(f);

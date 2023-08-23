@@ -10,7 +10,6 @@ import java.util.Set;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -22,6 +21,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
@@ -38,12 +38,9 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "CuaHang.findById", query = "SELECT c FROM CuaHang c WHERE c.id = :id"),
     @NamedQuery(name = "CuaHang.findByName", query = "SELECT c FROM CuaHang c WHERE c.name = :name"),
     @NamedQuery(name = "CuaHang.findByDiaChi", query = "SELECT c FROM CuaHang c WHERE c.diaChi = :diaChi"),
+    @NamedQuery(name = "CuaHang.findByImage", query = "SELECT c FROM CuaHang c WHERE c.image = :image"),
     @NamedQuery(name = "CuaHang.findByCreatedDate", query = "SELECT c FROM CuaHang c WHERE c.createdDate = :createdDate")})
 public class CuaHang implements Serializable {
-
-    @JoinColumn(name = "id_loai", referencedColumnName = "id")
-    @ManyToOne
-    private LoaiCuaHang idLoai;
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -51,12 +48,17 @@ public class CuaHang implements Serializable {
     @Basic(optional = false)
     @Column(name = "id")
     private Integer id;
-    @Size(max = 45)
+    @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 45)
     @Column(name = "name")
     private String name;
     @Size(max = 255)
     @Column(name = "dia_chi")
     private String diaChi;
+    @Size(max = 255)
+    @Column(name = "image")
+    private String image;
     @Column(name = "created_date")
     @Temporal(TemporalType.TIMESTAMP)
     private Date createdDate;
@@ -64,6 +66,9 @@ public class CuaHang implements Serializable {
     private Set<ThucAn> thucAnSet;
     @OneToMany(mappedBy = "idCuaHang")
     private Set<DanhGia> danhGiaSet;
+    @JoinColumn(name = "id_loai_cua_hang", referencedColumnName = "id")
+    @ManyToOne
+    private LoaiCuaHang idLoaiCuaHang;
     @JoinColumn(name = "id_nguoi_dung", referencedColumnName = "id")
     @ManyToOne
     private NguoiDung idNguoiDung;
@@ -73,6 +78,11 @@ public class CuaHang implements Serializable {
 
     public CuaHang(Integer id) {
         this.id = id;
+    }
+
+    public CuaHang(Integer id, String name) {
+        this.id = id;
+        this.name = name;
     }
 
     public Integer getId() {
@@ -99,6 +109,14 @@ public class CuaHang implements Serializable {
         this.diaChi = diaChi;
     }
 
+    public String getImage() {
+        return image;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
+    }
+
     public Date getCreatedDate() {
         return createdDate;
     }
@@ -123,6 +141,14 @@ public class CuaHang implements Serializable {
 
     public void setDanhGiaSet(Set<DanhGia> danhGiaSet) {
         this.danhGiaSet = danhGiaSet;
+    }
+
+    public LoaiCuaHang getIdLoaiCuaHang() {
+        return idLoaiCuaHang;
+    }
+
+    public void setIdLoaiCuaHang(LoaiCuaHang idLoaiCuaHang) {
+        this.idLoaiCuaHang = idLoaiCuaHang;
     }
 
     public NguoiDung getIdNguoiDung() {
@@ -156,14 +182,6 @@ public class CuaHang implements Serializable {
     @Override
     public String toString() {
         return "com.hieu.pojo.CuaHang[ id=" + id + " ]";
-    }
-
-    public LoaiCuaHang getIdLoai() {
-        return idLoai;
-    }
-
-    public void setIdLoai(LoaiCuaHang idLoai) {
-        this.idLoai = idLoai;
     }
     
 }

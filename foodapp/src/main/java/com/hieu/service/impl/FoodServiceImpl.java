@@ -4,11 +4,16 @@
  */
 package com.hieu.service.impl;
 
+import com.cloudinary.Cloudinary;
+import com.cloudinary.utils.ObjectUtils;
 import com.hieu.pojo.ThucAn;
 import com.hieu.repository.FoodRepository;
 import com.hieu.service.FoodService;
+import java.io.IOException;
 import java.util.List;
 import java.util.Map;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -21,6 +26,8 @@ public class FoodServiceImpl implements FoodService{
 
     @Autowired
     private FoodRepository foodRepo;
+    @Autowired
+    private Cloudinary cloudinary;
     
     @Override
     public List<ThucAn> getThucAns(Map<String, String> params) {
@@ -44,6 +51,14 @@ public class FoodServiceImpl implements FoodService{
 
     @Override
     public boolean addOrUpdateFood(ThucAn f) {
+        if (!f.getFile().isEmpty()) {
+            try {
+                Map res = this.cloudinary.uploader().upload(f.getFile().getBytes(), ObjectUtils.asMap("resource_type", "auto"));
+                f.setImage(res.get("secure_url").toString());
+            } catch (IOException ex) {
+                Logger.getLogger(FoodServiceImpl.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
         return this.foodRepo.addOrUpdateFood(f);
     }
 

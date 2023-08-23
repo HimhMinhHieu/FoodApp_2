@@ -16,6 +16,7 @@ import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
@@ -39,10 +40,12 @@ public class LoaiCuaHang implements Serializable {
     @Basic(optional = false)
     @Column(name = "id")
     private Integer id;
-    @Size(max = 45)
+    @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 45)
     @Column(name = "name")
     private String name;
-    @OneToMany(mappedBy = "idLoai")
+    @OneToMany(mappedBy = "idLoaiCuaHang")
     private Set<CuaHang> cuaHangSet;
 
     public LoaiCuaHang() {
@@ -50,6 +53,11 @@ public class LoaiCuaHang implements Serializable {
 
     public LoaiCuaHang(Integer id) {
         this.id = id;
+    }
+
+    public LoaiCuaHang(Integer id, String name) {
+        this.id = id;
+        this.name = name;
     }
 
     public Integer getId() {

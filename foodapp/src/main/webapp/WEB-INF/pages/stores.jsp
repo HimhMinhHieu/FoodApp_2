@@ -28,7 +28,7 @@
 
                 <tr>
                     <td>
-
+                        <img src="${f.image}" alt="${f.image}" width="120"/>
                     </td>
                     <td>${f.id}</td>
                     <td>${f.name}</td>
@@ -43,7 +43,7 @@
                         <button type="button" class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#myModal-${f.id}">
                             Xem chi tiết
                         </button>
-                        <div class="modal" id="myModal-${f.id}">
+                        <div class="modal fade" id="myModal-${f.id}">
                             <div class="modal-dialog modal-dialog-centered">
                                 <div class="modal-content">
                                     <!-- Modal Header -->
@@ -56,13 +56,6 @@
                                     <div class="modal-body">
                                         <table class="table table-hover">
                                             <tbody>
-
-                                                <tr>
-                                                    <td></td>
-                                                    <td>
-
-                                                    </td>
-                                                </tr>
                                                 <tr>
                                                     <td>ID</td>
                                                     <td>${f.id}</td>
@@ -90,7 +83,10 @@
                                                     <td>Tên Cửa Hàng</td>
                                                     <td>${f.idCuaHang.name}</td>
                                                 </tr>
-
+                                                
+                                                <tr>
+                                                    <img src="${f.image}" alt="${f.image}" width="100%"/>
+                                                </tr>
                                             </tbody>
                                         </table> 
                                     </div>

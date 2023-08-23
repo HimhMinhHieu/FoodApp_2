@@ -44,7 +44,6 @@ public class FoodController {
 
         ThucAn food = new ThucAn();
         food.setIdCuaHang(this.storeService.getCuaHangById(id));
-        
         model.addAttribute("foods", food);
 //        model.addAttribute("stores", this.storeService.getCuaHangById(id));
 //        model.addAttribute("categories", this.categoryService.getCategorys());

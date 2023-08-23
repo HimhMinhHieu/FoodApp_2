@@ -17,17 +17,30 @@
         <div class="collapse navbar-collapse" id="collapsibleNavbar">
             <ul class="navbar-nav">
                 <li class="nav-item">
-                    <a class="nav-link" href="#">Trang chu</a>
+                    <a class="nav-link" href="${action}">Trang chu</a>
                 </li>
                 <c:forEach items="${catestores}" var="cs">
                     <c:url value="/" var="searchCS">
                         <c:param name="catestoreId" value="${cs.id}" /> 
                     </c:url>
-                    
                     <li class="nav-item">
                         <a class="nav-link" href="${searchCS}">${cs.name}</a>
                     </li>
                 </c:forEach>
+                <div class="me-auto">
+                    <c:choose>
+                        <c:when test="${pageContext.request.userPrincipal.name != null}">
+                            <li class="nav-item">
+                                <a class="nav-link" href="<c:url value="/" />">${pageContext.request.userPrincipal.name}</a>
+                            </li>
+                        </c:when>
+                        <c:otherwise>
+                            <li class="nav-item">
+                                <a class="nav-link" href="<c:url value="/login" />">Đăng nhập</a>
+                            </li>
+                        </c:otherwise>
+                    </c:choose>
+                </div>
             </ul>
         </div>
     </div>
