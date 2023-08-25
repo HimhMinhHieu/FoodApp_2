@@ -4,40 +4,30 @@
  */
 package com.hieu.controllers;
 
-import com.hieu.pojo.ThucAn;
-import com.hieu.service.FoodService;
+import com.hieu.pojo.Category;
+import com.hieu.service.CategoryService;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
  *
- * @author Thao
+ * @author Chung Vu
  */
 @RestController
 @RequestMapping("/api")
-public class ApiFoodController {
+public class ApiCategoryController {
     @Autowired
-    private FoodService foodService;
+    private CategoryService cateService;
     
-    @DeleteMapping("/stores/{id}/foods/{id}")
-    @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void deleteFood(@PathVariable(value = "id") int id)
-    {
-        this.foodService.deleteFood(id);
-    }
-    
-    @GetMapping("/stores/{id}/")
+    @GetMapping("/categories/")
     @CrossOrigin
-    public ResponseEntity<List<ThucAn>> list(@PathVariable("id") int id){
-        return new ResponseEntity<>(this.foodService.getThucAnByCuaHang(id), HttpStatus.OK);
+    public ResponseEntity<List<Category>> list() {
+        return new ResponseEntity<>(this.cateService.getCategorys(), HttpStatus.OK);
     }
 }

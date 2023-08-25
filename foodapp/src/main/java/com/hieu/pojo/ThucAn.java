@@ -4,12 +4,14 @@
  */
 package com.hieu.pojo;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.Set;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -86,11 +88,14 @@ public class ThucAn implements Serializable {
     private Date createdDate;
     @JoinColumn(name = "id_loai", referencedColumnName = "id")
     @ManyToOne
+    @JsonIgnore
     private Category idLoai;
     @JoinColumn(name = "id_cua_hang", referencedColumnName = "id")
     @ManyToOne
+    @JsonIgnore
     private CuaHang idCuaHang;
     @OneToMany(mappedBy = "idThucAn")
+    @JsonIgnore
     private Set<HoaDonChiTiet> hoaDonChiTietSet;
     @Transient
     private MultipartFile file;

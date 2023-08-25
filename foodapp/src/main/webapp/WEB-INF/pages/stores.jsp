@@ -85,7 +85,7 @@
                                                 </tr>
                                                 
                                                 <tr>
-                                                    <img src="${f.image}" alt="${f.image}" width="100%"/>
+                                                    <img src="${f.image}" alt="${f.image}" width="50%"/>
                                                 </tr>
                                             </tbody>
                                         </table> 
