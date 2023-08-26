@@ -38,6 +38,10 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "HoaDonChiTiet.findByCreatedDate", query = "SELECT h FROM HoaDonChiTiet h WHERE h.createdDate = :createdDate")})
 public class HoaDonChiTiet implements Serializable {
 
+    // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
+    @Column(name = "khoang_cach")
+    private Double khoangCach;
+
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -159,6 +163,14 @@ public class HoaDonChiTiet implements Serializable {
     @Override
     public String toString() {
         return "com.hieu.pojo.HoaDonChiTiet[ id=" + id + " ]";
+    }
+
+    public Double getKhoangCach() {
+        return khoangCach;
+    }
+
+    public void setKhoangCach(Double khoangCach) {
+        this.khoangCach = khoangCach;
     }
     
 }

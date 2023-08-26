@@ -88,11 +88,11 @@ public class ThucAn implements Serializable {
     private Date createdDate;
     @JoinColumn(name = "id_loai", referencedColumnName = "id")
     @ManyToOne
-    @JsonIgnore
+    
     private Category idLoai;
     @JoinColumn(name = "id_cua_hang", referencedColumnName = "id")
     @ManyToOne
-    @JsonIgnore
+    
     private CuaHang idCuaHang;
     @OneToMany(mappedBy = "idThucAn")
     @JsonIgnore

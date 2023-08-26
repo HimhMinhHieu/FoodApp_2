@@ -43,6 +43,12 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "CuaHang.findByCreatedDate", query = "SELECT c FROM CuaHang c WHERE c.createdDate = :createdDate")})
 public class CuaHang implements Serializable {
 
+    @Column(name = "gia_van_chuyen")
+    private Long giaVanChuyen;
+    @OneToMany(mappedBy = "idCuaHang")
+    @JsonIgnore
+    private Set<QuyDinhVanChuyen> quyDinhVanChuyenSet;
+
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -71,11 +77,11 @@ public class CuaHang implements Serializable {
     private Set<DanhGia> danhGiaSet;
     @JoinColumn(name = "id_loai_cua_hang", referencedColumnName = "id")
     @ManyToOne
-    @JsonIgnore
+    
     private LoaiCuaHang idLoaiCuaHang;
     @JoinColumn(name = "id_nguoi_dung", referencedColumnName = "id")
     @ManyToOne
-    @JsonIgnore
+    
     private NguoiDung idNguoiDung;
 
     public CuaHang() {
@@ -187,6 +193,23 @@ public class CuaHang implements Serializable {
     @Override
     public String toString() {
         return "com.hieu.pojo.CuaHang[ id=" + id + " ]";
+    }
+
+    public Long getGiaVanChuyen() {
+        return giaVanChuyen;
+    }
+
+    public void setGiaVanChuyen(Long giaVanChuyen) {
+        this.giaVanChuyen = giaVanChuyen;
+    }
+
+    @XmlTransient
+    public Set<QuyDinhVanChuyen> getQuyDinhVanChuyenSet() {
+        return quyDinhVanChuyenSet;
+    }
+
+    public void setQuyDinhVanChuyenSet(Set<QuyDinhVanChuyen> quyDinhVanChuyenSet) {
+        this.quyDinhVanChuyenSet = quyDinhVanChuyenSet;
     }
     
 }

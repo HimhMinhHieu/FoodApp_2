@@ -10,6 +10,7 @@
     <class>com.hieu.pojo.Category</class>
     <class>com.hieu.pojo.HoaDon</class>
     <class>com.hieu.pojo.LoaiCuaHang</class>
+    <class>com.hieu.pojo.QuyDinhVanChuyen</class>
     <exclude-unlisted-classes>false</exclude-unlisted-classes>
     <properties>
       <property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/foodappdb?zeroDateTimeBehavior=CONVERT_TO_NULL"/>
