@@ -18,4 +18,5 @@ public interface FoodRepository {
     ThucAn getThucAnById(int id);
     boolean addOrUpdateFood(ThucAn f);
     boolean deleteFood(int id);
+    boolean deleteAllFood(int id);
 }

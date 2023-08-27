@@ -12,4 +12,6 @@ import com.hieu.pojo.NguoiDung;
  */
 public interface UserRepository {
     NguoiDung getUserByUsername(String username);
+    boolean authUser(String username, String password);
+    NguoiDung addUser(NguoiDung user);
 }

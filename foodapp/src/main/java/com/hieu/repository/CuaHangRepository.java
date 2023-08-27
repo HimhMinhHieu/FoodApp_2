@@ -15,4 +15,5 @@ import java.util.Map;
 public interface CuaHangRepository {
     List<CuaHang> getCuaHangs(Map<String, String> params);
     CuaHang getCuaHangById(int id);
+    boolean deleteStore(int id);
 }

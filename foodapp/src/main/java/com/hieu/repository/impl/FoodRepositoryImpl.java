@@ -157,4 +157,20 @@ public class FoodRepositoryImpl implements FoodRepository {
         }
     }
 
+    @Override
+    public boolean deleteAllFood(int id) {
+        Session s = this.factory.getObject().getCurrentSession();
+        //List<ThucAn> food = this.getThucAnByCuaHang(id);
+        try{
+            for(ThucAn f: this.getThucAnByCuaHang(id))
+                s.delete(f);
+            return true;
+        }catch(HibernateException ex)
+        {
+            ex.printStackTrace();
+            return false;
+        }
+    }
+
+    
 }

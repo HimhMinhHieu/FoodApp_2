@@ -35,7 +35,7 @@
                     <td>${f.soLuong}</td>
                     <td>${f.price}</td>
                     <td>
-                        <c:url value="/api/stores/${stores.id}/foods/${f.id}/" var="api" />
+                        <c:url value="/api/stores/foods/${f.id}/" var="api" />
                         <a href="<c:url value="/stores/${stores.id}/foods/${f.id}" />" class="btn btn-success" >Cập nhật</a>
                         <button class="btn btn-danger" onclick="delFood('${api}')">Xóa</button>
                     </td>

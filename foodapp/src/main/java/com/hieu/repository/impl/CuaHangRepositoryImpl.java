@@ -5,6 +5,7 @@
 package com.hieu.repository.impl;
 
 import com.hieu.pojo.CuaHang;
+import com.hieu.pojo.ThucAn;
 import com.hieu.repository.CuaHangRepository;
 import java.util.ArrayList;
 import java.util.List;
@@ -14,6 +15,7 @@ import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
+import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
@@ -89,6 +91,20 @@ public class CuaHangRepositoryImpl implements CuaHangRepository{
     public CuaHang getCuaHangById(int id) {
         Session s = this.factory.getObject().getCurrentSession();
         return s.get(CuaHang.class, id);
+    }
+
+    @Override
+    public boolean deleteStore(int id) {
+        Session s = this.factory.getObject().getCurrentSession();
+        CuaHang store = this.getCuaHangById(id);
+        try{
+            s.delete(store);
+            return true;
+        }catch(HibernateException ex)
+        {
+            ex.printStackTrace();
+            return false;
+        }
     }
     
 }

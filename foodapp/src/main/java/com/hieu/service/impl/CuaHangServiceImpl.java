@@ -30,5 +30,10 @@ public class CuaHangServiceImpl implements CuaHangService{
     public CuaHang getCuaHangById(int id) {
         return this.storeRepo.getCuaHangById(id);
     }
+
+    @Override
+    public boolean deleteStore(int id) {
+        return this.storeRepo.deleteStore(id);
+    }
     
 }

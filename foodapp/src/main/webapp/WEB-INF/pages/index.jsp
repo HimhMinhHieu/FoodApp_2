@@ -32,9 +32,10 @@
                     <td>${s.diaChi}</td>
                     <td>${s.idLoaiCuaHang}</td>
                     <td>
+                        <c:url value="/api/stores/${s.id}/" var="api" />
                         <a href="${searchStore}" class="btn btn-success" >Xem Chi Tiet</a>
                         <a href="#" class="btn btn-success" >Cập nhật</a>
-                        <button class="btn btn-danger">Xóa</button>
+                        <button class="btn btn-danger" onclick="delStore('${api}')">Xóa</button>
                     </td>
                 </tr>
             </c:forEach>

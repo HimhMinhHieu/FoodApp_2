@@ -4,6 +4,7 @@
  */
 package com.hieu.controllers;
 
+import com.hieu.pojo.CuaHang;
 import com.hieu.pojo.ThucAn;
 import com.hieu.service.FoodService;
 import java.util.List;
@@ -30,7 +31,7 @@ public class ApiFoodController {
     @Autowired
     private FoodService foodService;
     
-    @DeleteMapping("/stores/{id}/foods/{id}")
+    @DeleteMapping("/stores/foods/{id}/")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void deleteFood(@PathVariable(value = "id") int id)
     {

@@ -4,13 +4,17 @@
  */
 package com.hieu.service;
 
+import com.hieu.pojo.NguoiDung;
+import java.util.Map;
 import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 /**
  *
  * @author Thao
  */
 public interface UserService extends UserDetailsService{
-    
+    NguoiDung getUserByUn(String username);
+    boolean authUser(String username, String password);
+    NguoiDung addUser(Map<String, String> params, MultipartFile avatar);
 }

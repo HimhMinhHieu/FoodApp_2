@@ -1,6 +1,7 @@
 use foodappdb;
 use foodappdb1;
 use foodappdb2;
+use foodappdb3;
 create table nguoi_dung
 (
 	id int primary key auto_increment,
@@ -27,7 +28,6 @@ create table cua_hang
     name nvarchar(45) not null,
     dia_chi nvarchar(255),
     image nvarchar(255),
-    gia_van_chuyen decimal default 0,
     created_date datetime default now(),
     id_nguoi_dung int,
     foreign key(id_nguoi_dung) references nguoi_dung(id),
@@ -107,3 +107,6 @@ drop table thuc_an;
 drop table cua_hang;
 drop table nguoi_dung;
 drop table category;
+
+alter table cua_hang
+drop column gia_van_chuyen;

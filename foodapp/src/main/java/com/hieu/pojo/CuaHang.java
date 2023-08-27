@@ -43,8 +43,8 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "CuaHang.findByCreatedDate", query = "SELECT c FROM CuaHang c WHERE c.createdDate = :createdDate")})
 public class CuaHang implements Serializable {
 
-    @Column(name = "gia_van_chuyen")
-    private Long giaVanChuyen;
+//    @Column(name = "gia_van_chuyen")
+//    private Long giaVanChuyen;
     @OneToMany(mappedBy = "idCuaHang")
     @JsonIgnore
     private Set<QuyDinhVanChuyen> quyDinhVanChuyenSet;
@@ -195,13 +195,13 @@ public class CuaHang implements Serializable {
         return "com.hieu.pojo.CuaHang[ id=" + id + " ]";
     }
 
-    public Long getGiaVanChuyen() {
-        return giaVanChuyen;
-    }
-
-    public void setGiaVanChuyen(Long giaVanChuyen) {
-        this.giaVanChuyen = giaVanChuyen;
-    }
+//    public Long getGiaVanChuyen() {
+//        return giaVanChuyen;
+//    }
+//
+//    public void setGiaVanChuyen(Long giaVanChuyen) {
+//        this.giaVanChuyen = giaVanChuyen;
+//    }
 
     @XmlTransient
     public Set<QuyDinhVanChuyen> getQuyDinhVanChuyenSet() {
