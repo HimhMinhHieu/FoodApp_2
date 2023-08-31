@@ -8,8 +8,11 @@ import com.hieu.service.CuaHangService;
 import com.hieu.service.FoodService;
 import com.hieu.service.LoaiCuaHangService;
 import java.util.Map;
+import javax.annotation.Resource;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.PropertySource;
+import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ControllerAdvice;
@@ -23,26 +26,27 @@ import org.springframework.web.bind.annotation.RequestParam;
  */
 @Controller
 @ControllerAdvice
+@PropertySource("classpath:configs.properties")
 public class IndexController {
+
     @Autowired
     private CuaHangService storeService;
-    
+
     @Autowired
     private LoaiCuaHangService catestoreService;
-    
+
     @Autowired
     private FoodService foodService;
     
     @ModelAttribute
-    public void commonAttr(Model model, @RequestParam Map<String, String> params)
-    {
+    public void commonAttr(Model model, @RequestParam Map<String, String> params) {
 //        model.addAttribute("catestores", this.catestoreService.getLoaiCuaHangs());
         model.addAttribute("stores", this.storeService.getCuaHangs(params));
     }
-    
+
     @RequestMapping("/")
-    public String index(Model model, @RequestParam Map<String, String> params){
-        
+    public String index(Model model, @RequestParam Map<String, String> params) {
+
         model.addAttribute("catestores", this.catestoreService.getLoaiCuaHangs());
         model.addAttribute("foods", this.foodService.getThucAns(params));
         

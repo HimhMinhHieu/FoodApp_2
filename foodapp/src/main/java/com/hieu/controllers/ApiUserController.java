@@ -10,6 +10,7 @@ import com.hieu.service.UserService;
 import java.security.Principal;
 import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.PropertySource;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -29,11 +30,13 @@ import org.springframework.web.multipart.MultipartFile;
  */
 @RestController
 @RequestMapping("/api")
+@PropertySource("classpath:configs.properties")
 public class ApiUserController {
     @Autowired
     private JwtService jwtService;
     @Autowired
     private UserService userService;
+
     
     @PostMapping("/login/")
     @CrossOrigin
@@ -53,6 +56,8 @@ public class ApiUserController {
     @CrossOrigin
     public ResponseEntity<NguoiDung> addUser(@RequestParam Map<String, String> params, @RequestPart MultipartFile avatar) {
         NguoiDung user = this.userService.addUser(params, avatar);
+        
+        
         return new ResponseEntity<>(user, HttpStatus.CREATED);
     }
     

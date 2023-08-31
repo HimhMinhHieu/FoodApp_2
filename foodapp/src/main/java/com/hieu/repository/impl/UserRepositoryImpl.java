@@ -46,6 +46,7 @@ public class UserRepositoryImpl implements UserRepository {
     @Override
     public NguoiDung addUser(NguoiDung user) {
         Session s = this.factory.getObject().getCurrentSession();
+        user.setActive(Boolean.TRUE);
         s.save(user);
         
         return user;

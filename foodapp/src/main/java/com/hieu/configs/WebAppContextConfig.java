@@ -6,13 +6,18 @@ package com.hieu.configs;
 
 import com.hieu.formatters.CategoryFormatter;
 import com.hieu.formatters.StoreFormatter;
+import java.util.Properties;
+import javax.annotation.Resource;
 import org.springframework.context.MessageSource;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.context.support.ResourceBundleMessageSource;
+import org.springframework.core.env.Environment;
 import org.springframework.format.FormatterRegistry;
+import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.mail.javamail.JavaMailSenderImpl;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 import org.springframework.validation.Validator;
 import org.springframework.validation.beanvalidation.LocalValidatorFactoryBean;
@@ -36,7 +41,6 @@ import org.springframework.web.servlet.view.JstlView;
     "com.hieu.repository",
     "com.hieu.service"
 })
-@PropertySource("classpath:configs.properties")
 public class WebAppContextConfig implements WebMvcConfigurer {
 
     @Override
@@ -85,7 +89,7 @@ public class WebAppContextConfig implements WebMvcConfigurer {
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
         registry.addResourceHandler("/js/**").addResourceLocations("/WEB-INF/resources/js/");
     }
-    
+
     @Bean
     public CommonsMultipartResolver multipartResolver() {
         CommonsMultipartResolver resolver
@@ -93,5 +97,4 @@ public class WebAppContextConfig implements WebMvcConfigurer {
         resolver.setDefaultEncoding("UTF-8");
         return resolver;
     }
-    
 }

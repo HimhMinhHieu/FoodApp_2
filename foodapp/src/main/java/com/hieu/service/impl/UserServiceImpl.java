@@ -8,6 +8,7 @@ import com.cloudinary.Cloudinary;
 import com.cloudinary.utils.ObjectUtils;
 import com.hieu.pojo.NguoiDung;
 import com.hieu.repository.UserRepository;
+import com.hieu.service.MailService;
 import com.hieu.service.UserService;
 import java.io.IOException;
 import java.util.HashSet;
@@ -33,10 +34,12 @@ public class UserServiceImpl implements UserService{
 
     @Autowired
     private UserRepository userRepo;
-     @Autowired
+    @Autowired
     private BCryptPasswordEncoder passwordEncoder;
     @Autowired
     private Cloudinary cloudinary;
+    @Autowired
+    private MailService mailService;
     
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
@@ -69,8 +72,8 @@ public class UserServiceImpl implements UserService{
         u.setLastName(params.get("lastName"));
         u.setPhone(params.get("phone"));
         u.setEmail(params.get("email"));
-        u.setTaiKhoan(params.get("username"));
-        u.setMatKhau(this.passwordEncoder.encode(params.get("password")));
+        u.setTaiKhoan(params.get("taiKhoan"));
+        u.setMatKhau(this.passwordEncoder.encode(params.get("matKhau")));
         u.setVaiTro("customer");
         if (!avatar.isEmpty()) {
             try {
@@ -81,7 +84,7 @@ public class UserServiceImpl implements UserService{
                 Logger.getLogger(UserServiceImpl.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
-        
+        mailService.sendMail(params.get("email"), params.get("firstName"));
         this.userRepo.addUser(u);
         return u;
     }
