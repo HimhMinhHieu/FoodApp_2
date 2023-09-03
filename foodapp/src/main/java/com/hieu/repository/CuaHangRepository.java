@@ -16,4 +16,5 @@ public interface CuaHangRepository {
     List<CuaHang> getCuaHangs(Map<String, String> params);
     CuaHang getCuaHangById(int id);
     boolean deleteStore(int id);
+    CuaHang getCuaHangByUser(String username);
 }

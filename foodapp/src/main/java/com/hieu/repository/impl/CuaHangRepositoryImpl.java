@@ -52,15 +52,15 @@ public class CuaHangRepositoryImpl implements CuaHangRepository{
                 predicates.add(b.like(root.get("name"), String.format("%%%s%%", kw)));
             }
 
-            String fromPrice = params.get("fromPrice");
-            if (fromPrice != null && !fromPrice.isEmpty()) {
-                predicates.add(b.greaterThanOrEqualTo(root.get("price"), Double.parseDouble(fromPrice)));
-            }
-
-            String toPrice = params.get("toPrice");
-            if (toPrice != null && !toPrice.isEmpty()) {
-                predicates.add(b.lessThanOrEqualTo(root.get("price"), Double.parseDouble(toPrice)));
-            }
+//            String fromPrice = params.get("fromPrice");
+//            if (fromPrice != null && !fromPrice.isEmpty()) {
+//                predicates.add(b.greaterThanOrEqualTo(root.get("price"), Double.parseDouble(fromPrice)));
+//            }
+//
+//            String toPrice = params.get("toPrice");
+//            if (toPrice != null && !toPrice.isEmpty()) {
+//                predicates.add(b.lessThanOrEqualTo(root.get("price"), Double.parseDouble(toPrice)));
+//            }
 
             String catestoreId = params.get("catestoreId");
             if (catestoreId != null && !catestoreId.isEmpty()) {
@@ -106,5 +106,15 @@ public class CuaHangRepositoryImpl implements CuaHangRepository{
             return false;
         }
     }
+
+    @Override
+    public CuaHang getCuaHangByUser(String username) {
+        Session s = this.factory.getObject().getCurrentSession();
+        Query q = s.createQuery("FROM CuaHang WHERE idNguoiDung.taiKhoan = :un ");
+        q.setParameter("un", username);
+
+        return (CuaHang) q.getSingleResult();
+    }
+
     
 }

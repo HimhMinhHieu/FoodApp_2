@@ -8,10 +8,12 @@ import com.hieu.pojo.CuaHang;
 import com.hieu.pojo.ThucAn;
 import com.hieu.service.CuaHangService;
 import com.hieu.service.FoodService;
+import java.security.Principal;
 import java.util.List;
 import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -38,6 +40,13 @@ public class ApiStoreController {
     @CrossOrigin
     public ResponseEntity<List<CuaHang>> list(@RequestParam Map<String, String> params) {
         return new ResponseEntity<>(this.storeService.getCuaHangs(params), HttpStatus.OK);
+    }
+    
+    @GetMapping(path = "/current-user/stores/details/", produces = MediaType.APPLICATION_JSON_VALUE)
+    @CrossOrigin
+    public ResponseEntity<CuaHang> detailsStore(Principal user) {
+        CuaHang s = this.storeService.getCuaHangByUser(user.getName());
+        return new ResponseEntity<>(s, HttpStatus.OK);
     }
     
     @DeleteMapping("/stores/{id}/")

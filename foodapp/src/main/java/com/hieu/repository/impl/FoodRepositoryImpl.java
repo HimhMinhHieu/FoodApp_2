@@ -64,10 +64,10 @@ public class FoodRepositoryImpl implements FoodRepository {
 //                predicates.add(b.lessThanOrEqualTo(root.get("price"), Double.parseDouble(toPrice)));
 //            }
 //
-//            String catestoreId = params.get("catestoreId");
-//            if (catestoreId != null && !catestoreId.isEmpty()) {
-//                predicates.add(b.equal(root.get("idLoai"), Integer.parseInt(catestoreId)));
-//            }
+            String cateId = params.get("cateId");
+            if (cateId != null && !cateId.isEmpty()) {
+                predicates.add(b.equal(root.get("idLoai"), Integer.parseInt(cateId)));
+            }
             String storeId = params.get("storeId");
             if (storeId != null && !storeId.isEmpty()) {
                 predicates.add(b.equal(root.get("idCuaHang"), Integer.parseInt(storeId)));
