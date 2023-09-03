@@ -60,18 +60,19 @@ public class ApiFoodController {
         return new ResponseEntity<>(this.foodService.getThucAns(params), HttpStatus.OK);
     }
     
-    @PostMapping(path = "/stores/{id}/foods", consumes = {
+    @PostMapping(path = "/stores/{id}/foods/", consumes = {
         MediaType.MULTIPART_FORM_DATA_VALUE,
         MediaType.APPLICATION_JSON_VALUE
     })
+    @CrossOrigin
     @ResponseStatus(HttpStatus.CREATED)
     public void add(@RequestParam Map<String, String> params, @RequestPart MultipartFile[] file) {
         ThucAn f = new ThucAn();
         f.setName(params.get("name"));
         f.setSoLuong(Integer.parseInt(params.get("soLuong")));
         f.setPrice(Long.parseLong(params.get("price")));
-        f.setIdLoai(this.cateService.getCateById(Integer.parseInt(params.get("categoryId"))));
-        f.setIdCuaHang(this.storeService.getCuaHangById(Integer.parseInt(params.get("storeId"))));
+        f.setIdLoai(this.cateService.getCateById(Integer.parseInt(params.get("idLoai"))));
+        f.setIdCuaHang(this.storeService.getCuaHangById(Integer.parseInt(params.get("idCuaHang"))));
         if (file.length > 0)
             f.setFile(file[0]);
         this.foodService.addOrUpdateFood(f);
