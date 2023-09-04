@@ -34,33 +34,33 @@ import org.springframework.web.multipart.MultipartFile;
 @RestController
 @RequestMapping("/api")
 public class ApiFoodController {
+
     @Autowired
     private FoodService foodService;
     @Autowired
     private CategoryService cateService;
     @Autowired
     private CuaHangService storeService;
-    
+
     @DeleteMapping("/stores/foods/{id}/")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void deleteFood(@PathVariable(value = "id") int id)
-    {
+    public void deleteFood(@PathVariable(value = "id") int id) {
         this.foodService.deleteFood(id);
     }
-    
+
     @GetMapping("/stores/{id}/")
     @CrossOrigin
-    public ResponseEntity<List<ThucAn>> list(@PathVariable("id") int id){
+    public ResponseEntity<List<ThucAn>> list(@PathVariable("id") int id) {
         return new ResponseEntity<>(this.foodService.getThucAnByCuaHang(id), HttpStatus.OK);
     }
-    
+
     @GetMapping("/stores/foods/")
     @CrossOrigin
-    public ResponseEntity<List<ThucAn>> listFood(@RequestParam Map<String, String> params){
+    public ResponseEntity<List<ThucAn>> listFood(@RequestParam Map<String, String> params) {
         return new ResponseEntity<>(this.foodService.getThucAns(params), HttpStatus.OK);
     }
-    
-    @PostMapping(path = "/stores/{id}/foods/", consumes = {
+
+    @PostMapping(path = "/stores/foods/addfood/", consumes = {
         MediaType.MULTIPART_FORM_DATA_VALUE,
         MediaType.APPLICATION_JSON_VALUE
     })
@@ -73,8 +73,40 @@ public class ApiFoodController {
         f.setPrice(Long.parseLong(params.get("price")));
         f.setIdLoai(this.cateService.getCateById(Integer.parseInt(params.get("idLoai"))));
         f.setIdCuaHang(this.storeService.getCuaHangById(Integer.parseInt(params.get("idCuaHang"))));
-        if (file.length > 0)
+//        f.setImage("https://res.cloudinary.com/dqkk4eqcv/image/upload/v1693348549/d6rt8bgsd55sbhxdf4vy.png");
+        if (file.length > 0) {
             f.setFile(file[0]);
+        }
         this.foodService.addOrUpdateFood(f);
+    }
+
+    @PostMapping(path = "/stores/foods/updatefood/{foodId}/", consumes = {
+        MediaType.MULTIPART_FORM_DATA_VALUE,
+        MediaType.APPLICATION_JSON_VALUE
+    })
+    @CrossOrigin
+    @ResponseStatus(HttpStatus.OK)
+    public void update(@RequestParam Map<String, String> params, @RequestPart MultipartFile[] file, @PathVariable(value = "foodId") int id) {
+        ThucAn f = this.foodService.getThucAnById(id);
+
+        f.setName(params.get("name"));
+        f.setSoLuong(Integer.parseInt(params.get("soLuong")));
+        f.setPrice(Long.parseLong(params.get("price")));
+        f.setIdLoai(this.cateService.getCateById(Integer.parseInt(params.get("idLoai"))));
+        f.setIdCuaHang(this.storeService.getCuaHangById(Integer.parseInt(params.get("idCuaHang"))));
+        if (file.length > 0) {
+            f.setFile(file[0]);
+        } else
+        {
+            f.setImage(f.getImage());
+        }
+        this.foodService.addOrUpdateFood(f);
+
+    }
+
+    @RequestMapping(path = "/foods/{foodId}/", produces = MediaType.APPLICATION_JSON_VALUE)
+    @CrossOrigin
+    public ResponseEntity<ThucAn> details(@PathVariable(value = "foodId") int id) {
+        return new ResponseEntity<>(this.foodService.getThucAnById(id), HttpStatus.OK);
     }
 }

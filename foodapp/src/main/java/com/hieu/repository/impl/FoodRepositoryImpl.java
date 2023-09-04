@@ -125,8 +125,7 @@ public class FoodRepositoryImpl implements FoodRepository {
     }
 
     @Override
-    public boolean addOrUpdateFood(ThucAn f
-    ) {
+    public boolean addOrUpdateFood(ThucAn f) {
         Session s = this.factory.getObject().getCurrentSession();
         try {
             if (f.getId() == null) {
@@ -170,6 +169,15 @@ public class FoodRepositoryImpl implements FoodRepository {
             ex.printStackTrace();
             return false;
         }
+    }
+
+    @Override
+    public ThucAn addFood(ThucAn food) {
+        Session s = this.factory.getObject().getCurrentSession();
+        
+        s.save(food);
+        
+        return food;
     }
 
     

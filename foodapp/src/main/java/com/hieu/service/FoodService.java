@@ -7,6 +7,7 @@ package com.hieu.service;
 import com.hieu.pojo.ThucAn;
 import java.util.List;
 import java.util.Map;
+import org.springframework.web.multipart.MultipartFile;
 
 /**
  *
@@ -19,4 +20,5 @@ public interface FoodService {
     boolean addOrUpdateFood(ThucAn f);
     boolean deleteFood(int id);
     boolean deleteAllFood(int id);
+    ThucAn addFood(Map<String, String> params, MultipartFile file);
 }
