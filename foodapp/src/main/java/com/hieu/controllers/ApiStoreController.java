@@ -5,7 +5,9 @@
 package com.hieu.controllers;
 
 import com.hieu.pojo.CuaHang;
+import com.hieu.pojo.DanhGia;
 import com.hieu.pojo.ThucAn;
+import com.hieu.service.CommentService;
 import com.hieu.service.CuaHangService;
 import com.hieu.service.FoodService;
 import java.security.Principal;
@@ -19,6 +21,8 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
@@ -35,6 +39,8 @@ public class ApiStoreController {
     private CuaHangService storeService;
     @Autowired
     private FoodService foodService;
+    @Autowired
+    private CommentService commentService;
     
     @GetMapping("/stores/")
     @CrossOrigin
@@ -60,5 +66,19 @@ public class ApiStoreController {
         }
         
         this.storeService.deleteStore(id);
+    }
+    
+    @GetMapping("/stores/{storeId}/comments/")
+    @CrossOrigin
+    public ResponseEntity<List<DanhGia>> listComments(@PathVariable(value = "storeId") int id) {
+        return new ResponseEntity<>(this.commentService.getComments(id), HttpStatus.OK);
+    }
+    
+    @PostMapping(path="/comments/", produces = MediaType.APPLICATION_JSON_VALUE)
+    @CrossOrigin
+    public ResponseEntity<DanhGia> addComment(@RequestBody DanhGia comment) {
+        DanhGia c = this.commentService.addComment(comment);
+        
+        return new ResponseEntity<>(c, HttpStatus.CREATED);
     }
 }
