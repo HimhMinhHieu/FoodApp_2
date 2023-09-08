@@ -31,5 +31,10 @@
         <put-attribute name="content"
                        value="/WEB-INF/pages/login.jsp" />
     </definition>
+    <definition name="signupstores" extends="baseLayout">
+        <put-attribute name="title" value="Danh sách đăng ký cửa hàng" />
+        <put-attribute name="content"
+                       value="/WEB-INF/pages/signupstores.jsp" />
+    </definition>
 </tiles-definitions>
 

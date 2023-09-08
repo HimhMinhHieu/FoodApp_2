@@ -22,4 +22,24 @@ public class MailServiceImpl implements MailService{
     public void sendMail(String email, String name) {
         this.mailRepo.sendMail(email, name);
     }
+
+    @Override
+    public void sendMailaddStoreWait(String email) {
+        this.mailRepo.sendMailaddStoreWait(email);
+    }
+
+    @Override
+    public void sendMailaddStore(String email) {
+        this.mailRepo.sendMailaddStore(email);
+    }
+
+    @Override
+    public void sendMaildeleteStore(String email) {
+        this.mailRepo.sendMaildeleteStore(email);
+    }
+
+    @Override
+    public void sendMailAddFood(String email, String name, String nameFood, String nameStore) {
+        this.mailRepo.sendMailAddFood(email, name, nameFood, nameStore);
+    }
 }

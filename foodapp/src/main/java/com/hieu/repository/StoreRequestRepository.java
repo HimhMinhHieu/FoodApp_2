@@ -4,14 +4,16 @@
  */
 package com.hieu.repository;
 
-import com.hieu.pojo.LoaiCuaHang;
+import com.hieu.pojo.StoreRequest;
 import java.util.List;
 
 /**
  *
  * @author Thao
  */
-public interface LoaiCuaHangRepository {
-    List<LoaiCuaHang> getLoaiCuaHangs();
-    LoaiCuaHang getLoaiCuaHangById(int id);
+public interface StoreRequestRepository {
+    StoreRequest addRequest(StoreRequest request);
+    List<StoreRequest> getStoreReqs();
+    StoreRequest getStoreReqById(int id);
+    boolean deleteStoreReq(int id);
 }

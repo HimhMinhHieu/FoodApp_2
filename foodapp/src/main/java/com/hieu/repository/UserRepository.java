@@ -5,6 +5,7 @@
 package com.hieu.repository;
 
 import com.hieu.pojo.NguoiDung;
+import java.util.List;
 
 /**
  *
@@ -14,4 +15,7 @@ public interface UserRepository {
     NguoiDung getUserByUsername(String username);
     boolean authUser(String username, String password);
     NguoiDung addUser(NguoiDung user);
+    NguoiDung getUserById(int id);
+    boolean UpdateUser(NguoiDung user);
+    List<NguoiDung> getUsers();
 }

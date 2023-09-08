@@ -32,5 +32,11 @@ public class LoaiCuaHangRepositoryImpl implements LoaiCuaHangRepository{
         
         return q.getResultList();
     }
+
+    @Override
+    public LoaiCuaHang getLoaiCuaHangById(int id) {
+        Session s = this.factory.getObject().getCurrentSession();
+        return s.get(LoaiCuaHang.class, id);
+    }
     
 }

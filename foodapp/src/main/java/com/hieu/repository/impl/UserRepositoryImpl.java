@@ -6,6 +6,7 @@ package com.hieu.repository.impl;
 
 import com.hieu.pojo.NguoiDung;
 import com.hieu.repository.UserRepository;
+import java.util.List;
 import javax.persistence.Query;
 import org.hibernate.Session;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -50,6 +51,27 @@ public class UserRepositoryImpl implements UserRepository {
         s.save(user);
         
         return user;
+    }
+
+    @Override
+    public NguoiDung getUserById(int id) {
+        Session s = this.factory.getObject().getCurrentSession();
+        return s.get(NguoiDung.class, id);
+    }
+
+    @Override
+    public boolean UpdateUser(NguoiDung user) {
+        Session s = this.factory.getObject().getCurrentSession();
+        s.update(user);
+        return true;
+    }
+
+    @Override
+    public List<NguoiDung> getUsers() {
+        Session s = this.factory.getObject().getCurrentSession();
+        Query q = s.createQuery("FROM NguoiDung");
+        
+        return q.getResultList();
     }
 
 }

@@ -10,4 +10,8 @@ package com.hieu.service;
  */
 public interface MailService {
     void sendMail(String email, String name);
+    void sendMailaddStoreWait(String email);
+    void sendMailaddStore(String email);
+    void sendMaildeleteStore(String email);
+    void sendMailAddFood(String email, String name, String nameFood, String nameStore);
 }

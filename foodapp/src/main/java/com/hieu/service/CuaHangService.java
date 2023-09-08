@@ -18,4 +18,5 @@ public interface CuaHangService {
     CuaHang getCuaHangById(int id);
     boolean deleteStore(int id);
     CuaHang getCuaHangByUser(String username);
+    boolean addOrUpdateStore(CuaHang f);
 }

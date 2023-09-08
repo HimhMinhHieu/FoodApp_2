@@ -4,11 +4,13 @@
  */
 package com.hieu.controllers;
 
-import com.hieu.pojo.CuaHang;
+import com.hieu.pojo.NguoiDung;
 import com.hieu.pojo.ThucAn;
 import com.hieu.service.CategoryService;
 import com.hieu.service.CuaHangService;
 import com.hieu.service.FoodService;
+import com.hieu.service.MailService;
+import com.hieu.service.UserService;
 import java.util.List;
 import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -41,6 +43,10 @@ public class ApiFoodController {
     private CategoryService cateService;
     @Autowired
     private CuaHangService storeService;
+    @Autowired
+    private UserService userService;
+    @Autowired
+    private MailService mailService;
 
     @DeleteMapping("/stores/foods/{id}/")
     @ResponseStatus(HttpStatus.NO_CONTENT)
@@ -78,6 +84,11 @@ public class ApiFoodController {
             f.setFile(file[0]);
         }
         this.foodService.addOrUpdateFood(f);
+        List<NguoiDung> users = userService.getUsers();
+        for(NguoiDung u : users)
+        {
+            mailService.sendMailAddFood(u.getEmail(), u.getFirstName(), f.getName(), f.getIdCuaHang().getName());
+        }
     }
 
     @PostMapping(path = "/stores/foods/updatefood/{foodId}/", consumes = {

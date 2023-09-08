@@ -7,7 +7,10 @@ package com.hieu.repository.impl;
 import com.hieu.pojo.CuaHang;
 import com.hieu.pojo.ThucAn;
 import com.hieu.repository.CuaHangRepository;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 import javax.persistence.Query;
@@ -114,6 +117,24 @@ public class CuaHangRepositoryImpl implements CuaHangRepository{
         q.setParameter("un", username);
 
         return (CuaHang) q.getSingleResult();
+    }
+
+    @Override
+    public boolean addOrUpdateStore(CuaHang f) {
+       Session s = this.factory.getObject().getCurrentSession();
+        try {
+            if (f.getId() == null) {
+                f.setCreatedDate(Date.from(LocalDateTime.now().atZone(ZoneId.systemDefault()).toInstant()));
+                s.save(f);
+            } else {
+                s.update(f);
+            }
+
+            return true;
+        } catch (HibernateException ex) {
+            ex.printStackTrace();
+            return false;
+        }
     }
 
     

@@ -27,6 +27,12 @@
                         <a class="nav-link" href="${searchCS}">${cs.name}</a>
                     </li>
                 </c:forEach>
+                <c:if test="${pageContext.request.userPrincipal.name != null}">
+                    <li class="nav-item">
+                       <a class="nav-link" href="<c:url value="/stores/request" />">Danh sách đăng ký cửa hàng</a>
+                   </li>
+                </c:if>
+                
                 <div class="me-auto">
                     <c:choose>
                         <c:when test="${pageContext.request.userPrincipal.name != null}">

@@ -12,6 +12,7 @@ import com.hieu.service.MailService;
 import com.hieu.service.UserService;
 import java.io.IOException;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.logging.Level;
@@ -87,6 +88,21 @@ public class UserServiceImpl implements UserService{
         mailService.sendMail(params.get("email"), params.get("firstName"));
         this.userRepo.addUser(u);
         return u;
+    }
+
+    @Override
+    public NguoiDung getUserById(int id) {
+        return this.userRepo.getUserById(id);
+    }
+
+    @Override
+    public boolean UpdateUser(NguoiDung user) {
+        return this.userRepo.UpdateUser(user);
+    }
+
+    @Override
+    public List<NguoiDung> getUsers() {
+        return this.userRepo.getUsers();
     }
     
 }

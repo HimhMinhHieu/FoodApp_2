@@ -6,10 +6,15 @@ package com.hieu.controllers;
 
 import com.hieu.pojo.CuaHang;
 import com.hieu.pojo.DanhGia;
+import com.hieu.pojo.NguoiDung;
+import com.hieu.pojo.StoreRequest;
 import com.hieu.pojo.ThucAn;
 import com.hieu.service.CommentService;
 import com.hieu.service.CuaHangService;
 import com.hieu.service.FoodService;
+import com.hieu.service.MailService;
+import com.hieu.service.StoreRequestService;
+import com.hieu.service.UserService;
 import java.security.Principal;
 import java.util.List;
 import java.util.Map;
@@ -41,6 +46,12 @@ public class ApiStoreController {
     private FoodService foodService;
     @Autowired
     private CommentService commentService;
+    @Autowired
+    private StoreRequestService storeReqService;
+    @Autowired
+    private UserService userService;
+    @Autowired
+    private MailService mailService;
     
     @GetMapping("/stores/")
     @CrossOrigin
@@ -66,6 +77,34 @@ public class ApiStoreController {
         }
         
         this.storeService.deleteStore(id);
+    }
+    
+    @PostMapping("/stores/request/{id}/")
+    @ResponseStatus(HttpStatus.CREATED)
+    public void addStore(@PathVariable(value = "id") int id)
+    {
+        StoreRequest sr = this.storeReqService.getStoreReqById(id);
+        NguoiDung user = this.userService.getUserById(sr.getIdNguoiDung().getId());
+        CuaHang s = new CuaHang();
+        s.setName(sr.getName());
+        s.setDiaChi(sr.getDiaChi());
+        s.setImage(sr.getImage());
+        s.setCreatedDate(sr.getCreatedDate());
+        s.setIdNguoiDung(sr.getIdNguoiDung());
+        s.setIdLoaiCuaHang(sr.getIdLoaiCuaHang());
+        user.setVaiTro("owner");
+        this.storeService.addOrUpdateStore(s);
+        this.userService.UpdateUser(user);
+        this.storeReqService.deleteStoreReq(id);
+        mailService.sendMailaddStore(user.getEmail());
+    }
+    
+    @DeleteMapping("/stores/request/{id}/")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void deleteReq(@PathVariable(value = "id") int id) {
+        StoreRequest sr = this.storeReqService.getStoreReqById(id);
+        mailService.sendMaildeleteStore(sr.getIdNguoiDung().getEmail());
+        this.storeReqService.deleteStoreReq(id);  
     }
     
     @GetMapping("/stores/{storeId}/comments/")

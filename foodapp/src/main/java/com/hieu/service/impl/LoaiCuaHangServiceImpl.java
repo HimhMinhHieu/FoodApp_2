@@ -25,5 +25,10 @@ public class LoaiCuaHangServiceImpl implements LoaiCuaHangService {
     public List<LoaiCuaHang> getLoaiCuaHangs() {
         return this.catestoreRepo.getLoaiCuaHangs();
     }
+
+    @Override
+    public LoaiCuaHang getLoaiCuaHangById(int id) {
+        return this.catestoreRepo.getLoaiCuaHangById(id);
+    }
     
 }
