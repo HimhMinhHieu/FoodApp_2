@@ -19,6 +19,7 @@
                 <th>Tên Cửa Hàng</th>
                 <th>Địa Chỉ</th>
                 <th>Loại Cửa Hàng</th>
+                <th>Giá Vận Chuyển</th>
                 <th>Ngày Đăng Ký</th>
             </tr>
         </thead>
@@ -33,6 +34,7 @@
                     <td>${r.name}</td>
                     <td>${r.diaChi}</td>
                     <td>${r.idLoaiCuaHang.name}</td>
+                    <td>${r.giaVanChuyen}</td>
                     <td>${r.createdDate}</td>
                     <td>
                         <c:url value="/api/stores/request/${r.id}/" var="api" />

@@ -5,6 +5,7 @@
 package com.hieu.service.impl;
 
 import com.hieu.pojo.DanhGia;
+import com.hieu.pojo.DanhGiaFood;
 import com.hieu.pojo.NguoiDung;
 import com.hieu.repository.CommentRepository;
 import com.hieu.repository.UserRepository;
@@ -41,6 +42,22 @@ public class CommentServiceImpl implements CommentService{
         c.setIdNguoiDung(u);
         
         return this.commentRepo.addComment(c);
+    }
+
+    @Override
+    public List<DanhGiaFood> getCommentsFood(int foodId) {
+        return this.commentRepo.getCommentsFood(foodId);
+    }
+
+    @Override
+    public DanhGiaFood addCommentFood(DanhGiaFood c) {
+        c.setCreatedDate(new Date());
+        
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        NguoiDung u = this.userRepo.getUserByUsername(authentication.getName());
+        c.setIdNguoiDung(u);
+        
+        return this.commentRepo.addCommentFood(c);
     }
     
 }

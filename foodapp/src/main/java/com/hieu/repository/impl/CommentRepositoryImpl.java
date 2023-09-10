@@ -5,6 +5,7 @@
 package com.hieu.repository.impl;
 
 import com.hieu.pojo.DanhGia;
+import com.hieu.pojo.DanhGiaFood;
 import com.hieu.repository.CommentRepository;
 import java.util.List;
 import javax.persistence.Query;
@@ -36,6 +37,27 @@ public class CommentRepositoryImpl implements CommentRepository{
 
     @Override
     public DanhGia addComment(DanhGia c) {
+        Session s = this.factory.getObject().getCurrentSession();
+        try {
+            s.save(c);
+            return c;
+        } catch (HibernateException ex) {
+            ex.printStackTrace();
+            return null;
+        }
+    }
+
+    @Override
+    public List<DanhGiaFood> getCommentsFood(int foodId) {
+        Session s = this.factory.getObject().getCurrentSession();
+        Query q = s.createQuery("From DanhGiaFood Where idThucAn.id=:id");
+        q.setParameter("id", foodId);
+        
+        return q.getResultList();
+    }
+
+    @Override
+    public DanhGiaFood addCommentFood(DanhGiaFood c) {
         Session s = this.factory.getObject().getCurrentSession();
         try {
             s.save(c);

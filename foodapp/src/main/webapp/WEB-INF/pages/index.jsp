@@ -30,7 +30,7 @@
                     <td>${s.id}</td>
                     <td>${s.name}</td>
                     <td>${s.diaChi}</td>
-                    <td>${s.idLoaiCuaHang}</td>
+                    <td>${s.idLoaiCuaHang.name}</td>
                     <td>
                         <c:url value="/api/stores/${s.id}/" var="api" />
                         <a href="${searchStore}" class="btn btn-success" >Xem Chi Tiet</a>

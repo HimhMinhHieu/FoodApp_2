@@ -86,6 +86,10 @@ public class CuaHang implements Serializable {
     
     private NguoiDung idNguoiDung;
     
+    @Basic(optional = false)
+    @Column(name = "gia_van_chuyen")
+    private long giaVanChuyen;
+    
     @Transient
     private MultipartFile file;
 
@@ -230,6 +234,20 @@ public class CuaHang implements Serializable {
      */
     public void setFile(MultipartFile file) {
         this.file = file;
+    }
+
+    /**
+     * @return the giaVanChuyen
+     */
+    public long getGiaVanChuyen() {
+        return giaVanChuyen;
+    }
+
+    /**
+     * @param giaVanChuyen the giaVanChuyen to set
+     */
+    public void setGiaVanChuyen(long giaVanChuyen) {
+        this.giaVanChuyen = giaVanChuyen;
     }
     
 }

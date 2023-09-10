@@ -33,14 +33,12 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "HoaDonChiTiet.findAll", query = "SELECT h FROM HoaDonChiTiet h"),
     @NamedQuery(name = "HoaDonChiTiet.findById", query = "SELECT h FROM HoaDonChiTiet h WHERE h.id = :id"),
     @NamedQuery(name = "HoaDonChiTiet.findBySoLuongMua", query = "SELECT h FROM HoaDonChiTiet h WHERE h.soLuongMua = :soLuongMua"),
-    @NamedQuery(name = "HoaDonChiTiet.findByGiaVanChuyen", query = "SELECT h FROM HoaDonChiTiet h WHERE h.giaVanChuyen = :giaVanChuyen"),
     @NamedQuery(name = "HoaDonChiTiet.findByTongTien", query = "SELECT h FROM HoaDonChiTiet h WHERE h.tongTien = :tongTien"),
     @NamedQuery(name = "HoaDonChiTiet.findByCreatedDate", query = "SELECT h FROM HoaDonChiTiet h WHERE h.createdDate = :createdDate")})
 public class HoaDonChiTiet implements Serializable {
 
     // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
-    @Column(name = "khoang_cach")
-    private Double khoangCach;
+    
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -52,10 +50,7 @@ public class HoaDonChiTiet implements Serializable {
     @NotNull
     @Column(name = "so_luong_mua")
     private int soLuongMua;
-    @Basic(optional = false)
-    @NotNull
-    @Column(name = "gia_van_chuyen")
-    private long giaVanChuyen;
+    
     @Basic(optional = false)
     @NotNull
     @Column(name = "tong_tien")
@@ -69,6 +64,10 @@ public class HoaDonChiTiet implements Serializable {
     @JoinColumn(name = "id_thuc_an", referencedColumnName = "id")
     @ManyToOne
     private ThucAn idThucAn;
+    @JoinColumn(name = "id_cua_hang", referencedColumnName = "id")
+    @ManyToOne
+    
+    private CuaHang idCuaHang;
 
     public HoaDonChiTiet() {
     }
@@ -77,10 +76,9 @@ public class HoaDonChiTiet implements Serializable {
         this.id = id;
     }
 
-    public HoaDonChiTiet(Integer id, int soLuongMua, long giaVanChuyen, long tongTien) {
+    public HoaDonChiTiet(Integer id, int soLuongMua, long tongTien) {
         this.id = id;
         this.soLuongMua = soLuongMua;
-        this.giaVanChuyen = giaVanChuyen;
         this.tongTien = tongTien;
     }
 
@@ -100,13 +98,6 @@ public class HoaDonChiTiet implements Serializable {
         this.soLuongMua = soLuongMua;
     }
 
-    public long getGiaVanChuyen() {
-        return giaVanChuyen;
-    }
-
-    public void setGiaVanChuyen(long giaVanChuyen) {
-        this.giaVanChuyen = giaVanChuyen;
-    }
 
     public long getTongTien() {
         return tongTien;
@@ -165,12 +156,19 @@ public class HoaDonChiTiet implements Serializable {
         return "com.hieu.pojo.HoaDonChiTiet[ id=" + id + " ]";
     }
 
-    public Double getKhoangCach() {
-        return khoangCach;
+    /**
+     * @return the idCuaHang
+     */
+    public CuaHang getIdCuaHang() {
+        return idCuaHang;
     }
 
-    public void setKhoangCach(Double khoangCach) {
-        this.khoangCach = khoangCach;
+    /**
+     * @param idCuaHang the idCuaHang to set
+     */
+    public void setIdCuaHang(CuaHang idCuaHang) {
+        this.idCuaHang = idCuaHang;
     }
+
     
 }

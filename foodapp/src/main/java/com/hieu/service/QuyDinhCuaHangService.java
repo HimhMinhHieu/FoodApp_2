@@ -4,18 +4,13 @@
  */
 package com.hieu.service;
 
-import com.hieu.pojo.DanhGia;
-import com.hieu.pojo.DanhGiaFood;
+import com.hieu.pojo.QuyDinhVanChuyen;
 import java.util.List;
 
 /**
  *
  * @author Thao
  */
-public interface CommentService {
-    List<DanhGia> getComments(int storeId);
-    DanhGia addComment(DanhGia c);
-    
-    List<DanhGiaFood> getCommentsFood(int foodId);
-    DanhGiaFood addCommentFood(DanhGiaFood c);
+public interface QuyDinhCuaHangService {
+    List<QuyDinhVanChuyen> ruleStore (int id);
 }

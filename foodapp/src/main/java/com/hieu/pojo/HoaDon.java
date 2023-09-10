@@ -4,6 +4,7 @@
  */
 package com.hieu.pojo;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.Set;
@@ -21,6 +22,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.validation.constraints.NotNull;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
@@ -37,6 +39,20 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "HoaDon.findByCreatedDate", query = "SELECT h FROM HoaDon h WHERE h.createdDate = :createdDate")})
 public class HoaDon implements Serializable {
 
+    /**
+     * @return the tongTien
+     */
+    public long getTongTien() {
+        return tongTien;
+    }
+
+    /**
+     * @param tongTien the tongTien to set
+     */
+    public void setTongTien(long tongTien) {
+        this.tongTien = tongTien;
+    }
+
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -47,10 +63,20 @@ public class HoaDon implements Serializable {
     @Temporal(TemporalType.TIMESTAMP)
     private Date createdDate;
     @OneToMany(mappedBy = "idHoaDon")
+    @JsonIgnore
     private Set<HoaDonChiTiet> hoaDonChiTietSet;
     @JoinColumn(name = "id_nguoi_dung", referencedColumnName = "id")
     @ManyToOne
     private NguoiDung idNguoiDung;
+    
+    @JoinColumn(name = "id_cua_hang", referencedColumnName = "id")
+    @ManyToOne
+    
+    private CuaHang idCuaHang;
+    
+    @Basic(optional = false)
+    @Column(name = "tong_tien")
+    private long tongTien;
 
     public HoaDon() {
     }
@@ -115,6 +141,20 @@ public class HoaDon implements Serializable {
     @Override
     public String toString() {
         return "com.hieu.pojo.HoaDon[ id=" + id + " ]";
+    }
+
+    /**
+     * @return the idCuaHang
+     */
+    public CuaHang getIdCuaHang() {
+        return idCuaHang;
+    }
+
+    /**
+     * @param idCuaHang the idCuaHang to set
+     */
+    public void setIdCuaHang(CuaHang idCuaHang) {
+        this.idCuaHang = idCuaHang;
     }
     
 }

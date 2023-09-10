@@ -55,6 +55,7 @@ public class ApiStoreRequestController {
         sr.setCreatedDate(new Date());
         sr.setIdNguoiDung(this.userService.getUserById(Integer.parseInt(params.get("idNguoiDung"))));
         sr.setIdLoaiCuaHang(this.storecateService.getLoaiCuaHangById(Integer.parseInt(params.get("idLoaiCuaHang"))));
+        sr.setGiaVanChuyen(Long.parseLong(params.get("giaVanChuyen")));
         if (file.length > 0) {
             sr.setFile(file[0]);
         }

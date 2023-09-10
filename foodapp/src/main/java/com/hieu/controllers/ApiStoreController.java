@@ -92,6 +92,7 @@ public class ApiStoreController {
         s.setCreatedDate(sr.getCreatedDate());
         s.setIdNguoiDung(sr.getIdNguoiDung());
         s.setIdLoaiCuaHang(sr.getIdLoaiCuaHang());
+        s.setGiaVanChuyen(sr.getGiaVanChuyen());
         user.setVaiTro("owner");
         this.storeService.addOrUpdateStore(s);
         this.userService.UpdateUser(user);

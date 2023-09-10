@@ -70,6 +70,10 @@ public class StoreRequest implements Serializable{
     
     private LoaiCuaHang idLoaiCuaHang;
     
+    @Basic(optional = false)
+    @Column(name = "gia_van_chuyen")
+    private long giaVanChuyen;
+    
     @Transient
     private MultipartFile file;
     
@@ -220,5 +224,19 @@ public class StoreRequest implements Serializable{
      */
     public void setIdLoaiCuaHang(LoaiCuaHang idLoaiCuaHang) {
         this.idLoaiCuaHang = idLoaiCuaHang;
+    }
+
+    /**
+     * @return the giaVanChuyen
+     */
+    public long getGiaVanChuyen() {
+        return giaVanChuyen;
+    }
+
+    /**
+     * @param giaVanChuyen the giaVanChuyen to set
+     */
+    public void setGiaVanChuyen(long giaVanChuyen) {
+        this.giaVanChuyen = giaVanChuyen;
     }
 }

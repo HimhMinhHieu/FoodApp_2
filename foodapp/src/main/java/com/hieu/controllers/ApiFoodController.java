@@ -4,9 +4,11 @@
  */
 package com.hieu.controllers;
 
+import com.hieu.pojo.DanhGiaFood;
 import com.hieu.pojo.NguoiDung;
 import com.hieu.pojo.ThucAn;
 import com.hieu.service.CategoryService;
+import com.hieu.service.CommentService;
 import com.hieu.service.CuaHangService;
 import com.hieu.service.FoodService;
 import com.hieu.service.MailService;
@@ -22,6 +24,7 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RequestPart;
@@ -47,6 +50,8 @@ public class ApiFoodController {
     private UserService userService;
     @Autowired
     private MailService mailService;
+    @Autowired
+    private CommentService commentService;
 
     @DeleteMapping("/stores/foods/{id}/")
     @ResponseStatus(HttpStatus.NO_CONTENT)
@@ -119,5 +124,19 @@ public class ApiFoodController {
     @CrossOrigin
     public ResponseEntity<ThucAn> details(@PathVariable(value = "foodId") int id) {
         return new ResponseEntity<>(this.foodService.getThucAnById(id), HttpStatus.OK);
+    }
+    
+    @GetMapping("/foods/{foodId}/comments/")
+    @CrossOrigin
+    public ResponseEntity<List<DanhGiaFood>> listComments(@PathVariable(value = "foodId") int id) {
+        return new ResponseEntity<>(this.commentService.getCommentsFood(id), HttpStatus.OK);
+    }
+    
+    @PostMapping(path="/foods/comments/", produces = MediaType.APPLICATION_JSON_VALUE)
+    @CrossOrigin
+    public ResponseEntity<DanhGiaFood> addComment(@RequestBody DanhGiaFood comment) {
+        DanhGiaFood c = this.commentService.addCommentFood(comment);
+        
+        return new ResponseEntity<>(c, HttpStatus.CREATED);
     }
 }
