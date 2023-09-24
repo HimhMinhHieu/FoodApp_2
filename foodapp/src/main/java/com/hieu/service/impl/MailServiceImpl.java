@@ -7,6 +7,7 @@ package com.hieu.service.impl;
 import com.hieu.repository.MailRepository;
 import com.hieu.service.MailService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 
 /**
@@ -14,6 +15,7 @@ import org.springframework.stereotype.Service;
  * @author Thao
  */
 @Service
+@Async
 public class MailServiceImpl implements MailService{
     @Autowired
     private MailRepository mailRepo;

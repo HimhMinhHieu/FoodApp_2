@@ -50,7 +50,7 @@ public class CuaHangRepositoryImpl implements CuaHangRepository{
         if (params != null) {
             List<Predicate> predicates = new ArrayList<>();
 
-            String kw = params.get("kw");
+            String kw = params.get("kw2");
             if (kw != null && !kw.isEmpty()) {
                 predicates.add(b.like(root.get("name"), String.format("%%%s%%", kw)));
             }
